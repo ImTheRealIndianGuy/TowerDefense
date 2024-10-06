@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dob6gowt57wg1"]
+
+[ext_resource type="PackedScene" uid="uid://cisqamd8671jx" path="res://Scenes/tile_map.tscn" id="1_varrr"]
+[ext_resource type="Script" path="res://Scenes/path_spawner.gd" id="2_cl5rq"]
+[ext_resource type="PackedScene" uid="uid://tqal0vtitkdi" path="res://Scenes/red_bullet_tower.tscn" id="3_jjnw1"]
+[ext_resource type="PackedScene" uid="uid://cl3joji2c6c6j" path="res://ui.tscn" id="4_md54v"]
+
+[node name="Game" type="Node2D"]
+
+[node name="TileMap" parent="." instance=ExtResource("1_varrr")]
+position = Vector2(0, 5)
+
+[node name="PathSpawner" type="Node2D" parent="."]
+position = Vector2(0, 5)
+script = ExtResource("2_cl5rq")
+
+[node name="Timer" type="Timer" parent="PathSpawner"]
+autostart = true
+
+[node name="Towers" type="Node2D" parent="."]
+
+[node name="RedBulletTower" parent="Towers" instance=ExtResource("3_jjnw1")]
+position = Vector2(-30, 51)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(985, 206)
+zoom = Vector2(0.385, 0.385)
+
+[node name="UI" parent="." instance=ExtResource("4_md54v")]
+
+[connection signal="timeout" from="PathSpawner/Timer" to="PathSpawner" method="_on_timer_timeout"]
